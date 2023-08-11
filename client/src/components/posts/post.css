@@ -1,0 +1,7 @@
+.posts{
+   flex: 7;
+    /* background-color: antiquewhite; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

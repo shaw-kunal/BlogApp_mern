@@ -1,0 +1,120 @@
+.login{
+    position: relative;
+
+}
+.loginWrapper{
+    /* overflow-x: hidden; */
+    height: calc(100vh );
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-image: linear-gradient(to left, #da2947 0%, #e3eeff 99%, #e3eeff 100%); */
+    /* background: url("https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=400"); */
+    align-items: center;
+    position: absolute;
+    top:-60px;
+    width: 100%;
+    z-index: -1;
+    /* background-image: linear-gradient(300deg , #00bfff,#ff4c68,#ef8172); */
+    background-image: linear-gradient(300deg,#008080 , #1d4c92 20%,#F5F5F5 );
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-size: 180% 180%;
+    animation: gradient-animation 15s ease infinite;
+    color: white;
+}
+
+@keyframes gradient-animation {
+    0%{
+        background-position: 0% 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0% 50%;
+    }
+    
+}
+.loginWrapper > span{
+    font-size: 50px;
+    
+    font-family: 'lora','Courier New', Courier, monospace;
+}
+
+.loginForm{
+    margin-top:20px;
+    display: flex;
+    flex-direction: column;
+
+}
+.loginForm > label{
+    font-family: 'lora','Courier New', Courier, monospace;
+    font-size: 20px;
+    margin: 10px 0px;
+
+
+}
+.loginInput{
+   padding: 10px 10px;
+   font-size: 20px;
+   margin-bottom: 20px;
+   outline: none;
+   border: none;
+   border: 1px solid white;
+   border-radius: 4px;
+   background-color: transparent;
+   color: white;
+   font-family: "lora";
+}
+.loginInput::placeholder{
+    color :#F5F5F5;
+    opacity: .5;
+    font-family: lora;
+}
+.loginButton{
+    padding: 10px ;
+    color:#9b23ea ;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: white;
+    border:none;
+    border-radius: 10px;
+font-family: "lora";
+    cursor: pointer;
+    margin: 20px 0px;
+}
+.loginButton:disabled{
+    cursor: not-allowed;
+    background-color: #008080;
+
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Make sure the overlay is on top of everything */
+  }
+  
+.loading-spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3); /* Light semi-transparent border */
+    border-top: 4px solid #00ff26; /* White border for spinning effect */
+    border-radius: 50%; /* Circular shape */
+    animation: spin 0.5s linear infinite; /* Spin animation */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
