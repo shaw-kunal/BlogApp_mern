@@ -1,115 +1,133 @@
-.post{
-    width: 400px;
-    /* background-color:aqua; */
-    margin:0px 25px 40px 25px;
-    border-radius: 10px;
-   transition:  all 1s ease-in;
-   background-color: transparent;
+.post {
+  width: 400px;
+  /* background-color:aqua; */
+  margin: 0px 25px 40px 25px;
+  border-radius: 10px;
+  transition:all .7s ease-out;
+  background-color: transparent;
+  position: relative;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.post:hover {
+  background-color: white;
+  transform: translateY(-5px);
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease
+}
+
+
+.postImg {
+  width: 100%;
+  height: 280px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: cover;
+  filter: grayscale(50%);
+  -webkit-filter: grayscale(50%);
+}
+
+.postInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
 
 }
-.post:hover{
-    background-color: white;
-    transform: translateY(-5px);
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease 
+
+.postCat {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 15px;
+  color: #be9656;
+  line-height: 20px;
+  margin: 15px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
-
-.postImg{
-    width: 100%;
-    height: 280px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    object-fit: cover;
-    filter: grayscale(50%);
-    -webkit-filter: grayscale(50%);
+.postTitle {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 15px;
+  cursor: pointer;
+  margin-top: 50px;
 }
 
-.postInfo{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-
-}
-.postCat{
-    font-family: 'Varela Round', sans-serif;
-    font-size:15px;
-    color:#be9656;
-    line-height: 20px;
-    margin: 15px;
-    margin-right: 10px;
-    cursor: pointer;
+.postDate {
+  font-family: 'Lora', serif;
+  font-size: 13px;
+  color: #999;
+  margin-top: 15px;
 }
 
-.postTitle{
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    margin-top:15px;
-    cursor:pointer;
-}
-.postDate{
-    font-family: 'Lora', serif;
-    font-size: 13px;
-    color:#999;
-    margin-top:15px;
-}
-.postDesc{
-font-family: 'Varela Round', sans-serif;
-font-size:15px;
-padding-left:15px ;
-padding-right:15px ;
-/* text-justify:left ; */
-text-align: justify;
-line-height: 24px;
-color: #444;;
-overflow: hidden;
-text-overflow: ellipsis;
-display: -webkit-box;
--webkit-line-clamp:4 ;
--webkit-box-orient: vertical;
-border-radius: 20px;
-    
-}
+.postDesc {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  /* text-justify:left ; */
+  text-align: justify;
+  line-height: 24px;
+  color: #444;
+  ;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  border-radius: 20px;
 
-/* ... (your existing CSS) ... */
+}
 
 .postActions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .postActionBtn {
-    border: none;
-    background-color: transparent;
-    color: #999;
-    cursor: pointer;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
-    transform-origin: center center;
-    opacity: 0.8;
-  }
-  
-  .postActionBtn:hover {
-    transform: scale(1.1);
-    color: #ff6347; /* Adjust the color to your preference */
-    opacity: 1;
-  }
-  
-  .likeBtn:hover {
-    color: #ff9800;
-  }
-  
-  .heartBtn:hover {
-    color: #f44336;
-  }
-  
-  .shareBtn:hover {
-    color: #4caf50;
-  }
-  
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 225px;
+  transition: all .7s ease;
+  z-index: -1;
+}
+
+.postAction {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.postAction>span {
+  font-weight: 500;
+  font-size: 25px;
+}
+
+.action {
+  border: 2px solid transparent;
+  border-radius: 50%;
+  padding: 7px;
+  font-size: 25px;
+  color: rgb(210, 195, 195);
+  cursor: pointer;
+
+}
+
+
+.action.like {
+color:green;  
+   /* Change to your desired active color */
+}
+.post:hover .postActions {
+  z-index: 1;
+  top:285px;
+}
+.action.heart{
+  color:red;  
+
+}

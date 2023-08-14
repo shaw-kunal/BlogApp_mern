@@ -21,6 +21,14 @@ const PostSchema = new mongoose.Schema({
         type: Array,
         required: false
     },
+    like:{
+        type:Array,
+        required:false
+    },
+    heart:{
+        type:Array,
+        requied:false
+    }
 },
     { timestamps: true }
 

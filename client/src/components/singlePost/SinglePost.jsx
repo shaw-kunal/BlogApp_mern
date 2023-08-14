@@ -5,7 +5,10 @@ import axios from 'axios';
 import { imagePath, proxy } from '../../config';
 import { Context } from '../../context/Context';
 import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import the default styles
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { toast } from 'react-toastify';
+import Comment from '../comment/Comment';
+import PostComment from '../postComment/PostComment';
 
 
 
@@ -18,23 +21,59 @@ const SinglePost = () => {
     const [updateMode, setUpdateMode] = useState(false)
     const [title, setTitle] = useState("")
     const [desc, setDesc] = useState("")
-
-
+    const [liked, setLiked] = useState(); // State to track like button color
+    const [hearted, setHearted] = useState(); // State to track heart button color
+    const [likeCount, setLikeCount] = useState()
+    const [heartCount, setHeartCount] = useState()
+    const [comment, setComment] = useState([])
 
     const path = location.pathname.split('/')[2];
+
     useEffect(() => {
         const getPost = async () => {
             const res = await axios.get("http://localhost:5000/api/post/" + path);
             setPost(res.data);
-            // console.log(res);
             setTitle(res.data.title);
             setDesc(res.data.desc)
+            setLikeCount(res.data.like.length);
+            setHeartCount(res.data.heart.length)
+        }
+
+        const getComment = async () => {
+            try {
+                const res = await axios.get(proxy + `/comment/${post._id}`);
+                setComment(res.data);
+            } catch (error) {
 
 
+            }
         }
         getPost();
-    }, [path])
+        getComment();
 
+
+    }, [path, post._id])
+    useEffect(() => {
+        const getPostAndComment = async () => {
+            try {
+                const postResponse = await axios.get("http://localhost:5000/api/post/" + path);
+                setPost(postResponse.data);
+                setTitle(postResponse.data.title);
+                setDesc(postResponse.data.desc);
+                setLiked(postResponse.data.like?.includes(user?.username) ? true : false);
+                setHearted(postResponse.data.heart?.includes(user?.username) ? true : false);
+                setLikeCount(postResponse.data.like.length);
+                setHeartCount(postResponse.data.heart.length);
+
+                const commentResponse = await axios.get(proxy + `/comment/${postResponse.data._id}`);
+                setComment(commentResponse.data);
+            } catch (error) {
+                // Handle error here
+            }
+        };
+
+        getPostAndComment();
+    }, [path, user]);
 
     const handleDelete = async () => {
 
@@ -74,6 +113,7 @@ const SinglePost = () => {
 
 
 
+
     // handle update
     const handleupdate = async () => {
         setUpdating(true)
@@ -95,6 +135,47 @@ const SinglePost = () => {
 
 
 
+    const handleLikeClick = async () => {
+        try {
+            if (liked) {
+
+                setLikeCount(likeCount - 1);
+                setLiked(false);
+                const res = await axios.post(proxy + `/post/${post._id}/unlike`, { username: user.username })
+                // console.log(res);
+
+            }
+            else {
+                setLikeCount(likeCount + 1);
+                setLiked(true);
+                const res = await axios.post(proxy + `/post/${post._id}/like`, { username: user.username })
+                // console.log(res);
+            }
+        } catch (error) {
+        }
+    };
+
+    const handleHeartClick = async () => {
+        try {
+            if (hearted) {
+                setHeartCount(heartCount - 1);
+                setHearted(false);
+                const res = await axios.post(proxy + `/post/${post._id}/removeheart`, { username: user.username })
+
+
+            }
+            else {
+                setHeartCount(heartCount + 1);
+                setHearted(true);
+                const res = await axios.post(proxy + `/post/${post._id}/heart`, { username: user.username })
+            }
+
+        } catch (error) {
+            toast.error("There is something wrong ")
+        }
+    };
+
+
     return (
         <div className='singlePost'>
             <div className="singlePostWrapper">
@@ -105,27 +186,49 @@ const SinglePost = () => {
                             src={imagePath + post.photo} alt="not found " />
                     }
                 </div>
-                {
-                    updateMode ?
-                        <input
-                            type='text'
-                            className='singlePostTitleInput '
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            autoFocus
-                        />
-                        :
-                        <h2 className="singlePostTitle">
-                            {post.title}
-                            {
-                                post.username === user?.username &&
-                                <div className="singlePostEdit">
-                                    <i className="singlePostIcon edit fa-solid fa-pen-to-square" onClick={() => setUpdateMode(true)}></i>
-                                    <i onClick={handleDelete} className="singlePostIcon delete fa-solid fa-trash"></i>
+
+                <div className='titleContainer'>
+                    {post && user && (
+                        <div className='singlePostAction'>
+                            <div className="singlePostActions">
+                                <div className="singlePostAction">
+                                    <i onClick={handleHeartClick} className={`fa-solid fa-heart singleAction ${hearted ? 'heart' : ''}`}></i>
+                                    <span>{heartCount !== 0 && heartCount}</span>
                                 </div>
-                            }
-                        </h2>
-                }
+                                <div className="postAction">
+                                    <i onClick={handleLikeClick} className={`fa-solid fa-thumbs-up singleAction ${liked ? 'like' : ''}`}></i>
+                                    <span>{likeCount !== 0 && likeCount}</span>
+                                </div>
+                                <div className="postAction">
+                                    <i className="fa-solid fa-share-from-square singleAction"></i>
+                                    <span>3</span>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    {
+                        updateMode ?
+                            <input
+                                type='text'
+                                className='singlePostTitleInput '
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                autoFocus
+                            />
+                            :
+                            <h2 className="singlePostTitle">
+                                {post.title}
+                                {
+                                    post.username === user?.username &&
+                                    <div className="singlePostEdit">
+                                        <i className="singlePostIcon edit fa-solid fa-pen-to-square" onClick={() => setUpdateMode(true)}></i>
+                                        <i onClick={handleDelete} className="singlePostIcon delete fa-solid fa-trash"></i>
+                                    </div>
+                                }
+                            </h2>
+                    }
+                </div>
+
 
                 <div className="singlePostInfo">
                     <span className='singlePostAuthor'>Author:<b>
@@ -147,12 +250,33 @@ const SinglePost = () => {
                             {post.desc}
                         </p>
                 }
-               
-               {
-                updateMode &&
-                <button className="singlePostButton" onClick={handleupdate}>Update</button>
-               }
+
+                {
+                    updateMode &&
+                    <button className="singlePostButton" onClick={handleupdate}>Update</button>
+                }
             </div>
+
+            {/* here comment section*/}
+
+            {
+                user &&
+                <PostComment postId={post._id} comment={comment} setComment={setComment} />
+            }
+
+            {
+                comment.map((comment) => (
+
+                    <Comment key={comment._id} comment={comment} />
+
+                ))
+            }
+
+
+
+
+
+
             {
                 (Deleting || Updaing) && <div className="overlay">
                     <div className="loading-spinner">

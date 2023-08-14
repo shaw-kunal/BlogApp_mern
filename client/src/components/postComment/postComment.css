@@ -1,0 +1,61 @@
+/* postComment.css */
+.postComment {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-left: 24px;
+  }
+  
+  .inputContainer {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 10px;
+  }
+  
+  .commentInput {
+    flex-grow: 1;
+    border: none;
+    font-family: inherit;
+    font-size: 17px;
+    line-height: 25px;
+    color: #4d4c4c;
+    outline: none;
+  }
+  
+  .actionButtons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .clearButton,
+  .sendButton {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    color: #999;
+  }
+  
+  .clearButton:hover{
+    color:red;
+  }
+  .sendButton:hover {
+    color:teal;
+  }
+  /* Add these styles to your postComment.css file */
+.emojiButton {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: #999;
+}
+
+.emojiButton:hover {
+  color: #333;
+}

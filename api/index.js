@@ -7,6 +7,7 @@ const authRoute = require("./routes/auth")
 const userRoute = require("./routes/users")
 const postRoute = require("./routes/posts")
 const categoryRoute = require("./routes/categories")
+const commentRoute = require("./routes/comment");
 const cors = require('cors'); // Require the cors package
 const path = require("path");
 
@@ -68,6 +69,7 @@ const storage = multer.diskStorage({
   app.use("/api/user" ,userRoute);
   app.use("/api/post" ,postRoute);
   app.use("/api/catagroy" ,categoryRoute);
+  app.use("/api/comment",commentRoute);
   
 app.listen("5000",()=>{
     console.log("backend is running");
