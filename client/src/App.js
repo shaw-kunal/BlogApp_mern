@@ -13,6 +13,8 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import { useContext } from "react";
 import { Context } from "./context/Context";
+import Contact from "./pages/Contact/Contact";
+import About from "./pages/about/About";
 
 
 
@@ -29,6 +31,10 @@ function App() {
       <Route path="/write" element={<Write/>}/>
       <Route path="/post/:postId" element={<Single/>}/>
       <Route path="/setting" element={<Setting/>}/>
+      <Route path="/contact" element={<Contact/>}/>
+      <Route path="/about" element={<About/>}/>
+      
+
 
 
       </Routes>

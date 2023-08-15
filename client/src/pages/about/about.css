@@ -1,0 +1,135 @@
+.about-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+    background-color: #f7f7f7;
+    animation: fadeIn 1s ease-in-out;
+    font-family: "lora";
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .about-content {
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1.5s ease-in-out;
+  }
+  
+  .about-image {
+    max-height: 400px; /* Set the maximum height for the image container */
+    overflow: hidden;
+  }
+  
+  .about-image img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin: 20px 0;
+    animation: fadeInUp 1.5s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .about-image img:hover {
+    transform: scale(1.05);
+  }
+  
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+
+    }
+  }
+  .about-header h2{
+    font-size: 35px;
+    color: aqua;
+  }
+  
+  .about-details h3 {
+    font-size: 28px;
+    color: tomato;
+    margin-top: 20px;
+    animation: fadeInUp 1.4s ease-in-out;
+
+  }
+  
+  .about-details p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    animation: fadeInUp 1.5s ease-in-out;
+  }
+  
+  .about-details ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 10px;
+    animation: fadeInUp 1.6s ease-in-out;
+    padding-left: 10px;
+  }
+  
+  .about-details li {
+    font-size: 18px;
+    line-height: 1.6;
+    position: relative;
+    margin-bottom: 10px;
+    color: #333;
+    cursor: pointer;
+    animation: fadeInUp 1.7s ease-in-out;
+  }
+  
+  .about-details li:before {
+    content: '\2022';
+    position: absolute;
+    left: -20px;
+    color: aqua;
+  }
+  
+  .about-details li:hover {
+    transform: translateX(5px);
+    color: aqua;
+    animation: bounce 0.5s ease-in-out;
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .about-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 0px;
+      background-color: #f7f7f7;
+      animation: fadeIn 1s ease-in-out;
+      font-family: "lora";
+    }
+    
+
+  }

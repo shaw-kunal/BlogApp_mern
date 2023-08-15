@@ -40,7 +40,7 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-   
+
 }
 
 .profileContainer {
@@ -48,10 +48,11 @@
     height: 150px;
     border-radius: 50%;
     padding: 10px;
-    background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);    display: flex;
+    background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);
+    display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 .profilePicture {
@@ -106,31 +107,60 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
+.settingButton:disabled {
+    background-color: linear-gradient(20deg, #fc6076 0%, #ff9a44 100%);
+    cursor: not-allowed;
+}
+
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black overlay */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Make sure the overlay is on top of everything */
-  }
-  
+    z-index: 9999;
+    /* Make sure the overlay is on top of everything */
+}
+
 .loading-spinner {
     display: inline-block;
     width: 50px;
     height: 50px;
-    border: 4px solid rgba(255, 255, 255, 0.3); /* Light semi-transparent border */
-    border-top: 4px solid #00ff26; /* White border for spinning effect */
-    border-radius: 50%; /* Circular shape */
-    animation: spin 0.5s linear infinite; /* Spin animation */
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    /* Light semi-transparent border */
+    border-top: 4px solid #00ff26;
+    /* White border for spinning effect */
+    border-radius: 50%;
+    /* Circular shape */
+    animation: spin 0.5s linear infinite;
+    /* Spin animation */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .sideBarSetting {
+        display: none;
+    }
+    .settingWrapper {
+        flex: 1;
+        margin-top: 20px;
+        /* background-color: aqua; */
+        padding: 10px;
+        margin-right: 10px;
+    }
+}

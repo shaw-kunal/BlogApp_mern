@@ -39,13 +39,17 @@
 }
 
 .singlePostTitle {
-    flex: 2;
+    width: 100%;
     text-align: center;
-    margin: 20px;
     font-family: 'lora';
     font-size: 28px;
+    margin: 0;
 
+    @media screen and (max-width: 768px) {
+        font-size: 24px; /* Decrease font size for smaller screens */
+    }
 }
+
 
 .singlePostButton {
     padding: 10px;
@@ -69,8 +73,17 @@
 
 .titleContainer {
     display: flex;
-}
+    flex-direction: column; /* Stack the elements vertically on small screens */
+    text-align: center; /* Center align the text */
+    margin: 20px 0; /* Add vertical margin for spacing */
 
+    @media screen and (min-width: 768px) {
+        flex-direction: row; /* Align the elements side by side on larger screens */
+        justify-content: space-between; /* Distribute elements horizontally */
+        align-items: center; /* Align items vertically */
+        text-align: left; /* Reset text alignment */
+    }
+}
 
 
 .singlePostActions {
@@ -84,7 +97,7 @@
 }
 
 .singlePostAction {
-    flex: 1;
+    flex: 0.5;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -224,5 +237,40 @@ color:red;
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .singlePost {
+        margin: 5px; /* Reduce the margin for smaller screens */
+    }
+
+    .singlePostTitle {
+        font-size: 20px; /* Decrease the font size for smaller screens */
+    }
+
+    .singlePostActions {
+        font-size: 12px; /* Decrease the font size for smaller screens */
+    }
+
+    .singlePostAction > span {
+        font-size: 12px; /* Decrease the font size for smaller screens */
+    }
+
+    .singlePostInfo {
+        font-size: 12px; /* Decrease the font size for smaller screens */
+    }
+
+    .SinglePostDesc {
+        font-size: 14px; /* Decrease the font size for smaller screens */
+    }
+
+    .singlePostButton {
+        padding: 6px 12px; /* Adjust the padding for smaller screens */
+        font-size: 12px; /* Decrease the font size for smaller screens */
+    }
+
+    .singlePostIcon {
+        font-size: 16px; /* Decrease the font size for smaller screens */
     }
 }

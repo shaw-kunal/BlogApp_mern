@@ -27,7 +27,7 @@ const Login = () => {
                     username: userRef.current.value,
                     password: passRef.current.value
                 })
-                console.log(res)
+                // console.log(res)
                 dispatch(loginSuccess(res.data));
       
             //    console.log(res.data)
@@ -39,9 +39,9 @@ const Login = () => {
         }
     }
 
-    console.log("isFetching " + isFetching)
-    console.log(user)
-    console.log("error" + error)
+    // console.log("isFetching " + isFetching)
+    // // console.log(user)
+    // console.log("error" + error)
     return (
         <div className="login">
             <div className='loginWrapper'>

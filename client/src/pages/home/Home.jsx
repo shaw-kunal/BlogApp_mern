@@ -6,6 +6,7 @@ import  {proxy} from "./../../config.js"
 import "./home.css"
 import axios from "axios"
 import { useLocation } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 
 
@@ -19,9 +20,10 @@ const Home = () => {
           try {
             const res = await axios.get( proxy + "/post/"+search);
             setPosts(res.data);
-             console.log(res);
+            //  console.log(res);
           } catch (error) {
-            console.log("find error in axios")
+            // console.log("find error in axios")
+            toast.error("something Wrong Try Again Later")
           }
         }
 

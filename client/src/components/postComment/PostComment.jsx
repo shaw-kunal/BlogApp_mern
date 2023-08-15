@@ -10,12 +10,12 @@ import EmojiPicker from 'emoji-picker-react';
 
 
 
-const PostComment = ({ postId ,comment,setComment}) => {
+const PostComment = ({ postId, comment, setComment }) => {
     const { user } = useContext(Context);
     const [commentText, setCommentText] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Track emoji picker visibility
     const handleCommentSubmit = async () => {
-        const commentRes= {
+        const commentRes = {
             postId,
             username: user.username,
             text: commentText,
@@ -23,10 +23,10 @@ const PostComment = ({ postId ,comment,setComment}) => {
         }
 
         try {
-         const res =   await axios.post(proxy + "/comment/", commentRes);
-         console.log(res.data)
-          setComment([...comment,res.data])
-         toast.success("commented successfully")
+            const res = await axios.post(proxy + "/comment/", commentRes);
+            console.log(res.data)
+            setComment([...comment, res.data])
+            toast.success("commented successfully")
         } catch (error) {
             toast.error("somethinng went wrong")
         }
@@ -36,19 +36,20 @@ const PostComment = ({ postId ,comment,setComment}) => {
     const handleClearText = () => {
         setCommentText("");
     };
-    const handleEmojiClick = (event, emojiObject) => {
-        // Handle emoji click event
-        if (emojiObject && emojiObject.emoji) {
-            const emoji = emojiObject.emoji;
-            setCommentText(commentText + emoji);
-        }
-    };
+  
 
 
     return (
         <div className="postComment">
             <div className="imgContainer">
-                <img src={imagePath + user.profilePic} alt="" />
+                {
+                    comment?.profilePic ?
+                        <img className="topImg"
+                            src={comment.profilePic}
+                            alt="" />
+                        :
+                        <img className="topImg" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt='not found' />
+                }
             </div>
             <div className='inputContainer'>
                 <input
@@ -57,17 +58,13 @@ const PostComment = ({ postId ,comment,setComment}) => {
                     placeholder="Add a comment..."
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
-                /> 
-                {/* <button
-                    className='emojiButton'
-                    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                > 😀
-                </button> */}
+                />
+
 
 
                 <div className="actionButtons">
                     {commentText.length > 0 && (
-                        <>  <button className="clearButton" onClick={handleClearText}>
+                        <> <button className="clearButton" onClick={handleClearText}>
                             <FontAwesomeIcon icon={faTimes} />
                         </button>
                             <button className="sendButton" onClick={handleCommentSubmit}>
@@ -78,14 +75,7 @@ const PostComment = ({ postId ,comment,setComment}) => {
                     }
                 </div>
             </div>
-            {showEmojiPicker &&
-
-                <EmojiPicker onEmojiClick={handleEmojiClick}
-                    disableAutoFocus={true}
-                    pickerStyle={{ width: '300px', height: '300px' }}
-                />
-
-            }
+           
 
 
         </div>

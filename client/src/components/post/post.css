@@ -1,7 +1,7 @@
 .post {
   width: 400px;
   /* background-color:aqua; */
-  margin: 0px 25px 40px 25px;
+  margin:20px;
   border-radius: 10px;
   transition:all .7s ease-out;
   background-color: transparent;
@@ -36,6 +36,14 @@
   align-items: center;
 
 
+}
+.shayari {
+  font-style: italic;
+  font-size: 1.2em;
+  color: #333;
+  padding: 10px;
+  border-left: 4px solid #e57373; /* Add a decorative border on the left side */
+  margin: 0;
 }
 
 .postCat {
@@ -130,4 +138,17 @@ color:green;
 .action.heart{
   color:red;  
 
+}
+
+@media screen and (max-width: 768px) {
+  .post {
+    width: 400px;
+    /* background-color:aqua; */
+    margin:25px 0px;
+    border-radius: 10px;
+    transition:all .7s ease-out;
+    background-color: transparent;
+    position: relative;
+    /* background-color: white; */
+  }
 }

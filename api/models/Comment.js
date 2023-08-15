@@ -16,7 +16,6 @@ const CommentSchema = new mongoose.Schema({
     },
     profilePic:{
         type:String,
-        default:"defaut.png"
     }
 },
 

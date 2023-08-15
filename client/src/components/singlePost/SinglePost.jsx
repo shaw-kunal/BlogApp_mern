@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import "./singlePost.css"
 import { Link, useLocation } from 'react-router-dom'
 import axios from 'axios';
-import { imagePath, proxy } from '../../config';
+import { proxy } from '../../config';
 import { Context } from '../../context/Context';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { toast } from 'react-toastify';
 import Comment from '../comment/Comment';
 import PostComment from '../postComment/PostComment';
+import { FacebookShareButton, FacebookIcon, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from 'react-share';
 
 
 
@@ -183,7 +184,7 @@ const SinglePost = () => {
                     {
                         post.photo &&
                         <img className='singlePostImg'
-                            src={imagePath + post.photo} alt="not found " />
+                            src={post.photo} alt="not found " />
                     }
                 </div>
 
@@ -201,7 +202,23 @@ const SinglePost = () => {
                                 </div>
                                 <div className="postAction">
                                     <i className="fa-solid fa-share-from-square singleAction"></i>
-                                    <span>3</span>
+                                    <FacebookShareButton url={window.location.href} quote={"share this Blog with Your Friend"}
+                                        hashtag="#share"
+                                    >
+                                        <FacebookIcon logoFillColor="white" size={40} round={true}></FacebookIcon>
+                                    </FacebookShareButton>
+
+                                    <TwitterShareButton url={window.location.href} quote={"share this Blog with Your Friend"}
+                                        hashtag="#share"
+                                    >
+                                        <TwitterIcon logoFillColor="white" size={40} round={true}></TwitterIcon>
+                                    </TwitterShareButton>
+                                    <WhatsappShareButton url={window.location.href} quote={"share this Blog with Your Friend"}
+                                        hashtag="#share"
+                                    >
+                                        <WhatsappIcon logoFillColor="white" size={40} round={true}></WhatsappIcon>
+                                    </WhatsappShareButton>
+
                                 </div>
                             </div>
                         </div>
@@ -247,7 +264,12 @@ const SinglePost = () => {
 
                     /> :
                         <p className='SinglePostDesc'>
-                            {post.desc}
+                            {desc.split('\n').map((line, index) => (
+                                <React.Fragment key={index}>
+                                    {line}
+                                    <br />
+                                </React.Fragment>
+                            ))}
                         </p>
                 }
 

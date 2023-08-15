@@ -1,3 +1,16 @@
-.single{
-    display: flex;
+.single {
+  display: flex;
+  flex-direction: column;
+  /* Stack the components vertically on small screens */
+}
+
+@media screen and (min-width: 768px) {
+  .single {
+    flex-direction: row;
+    /* Align the components side by side on larger screens */
+  }
+
+  .sideBarSetting {
+    display: none;
+  }
 }

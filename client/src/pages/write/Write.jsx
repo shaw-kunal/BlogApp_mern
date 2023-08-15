@@ -4,6 +4,8 @@ import { Context } from '../../context/Context';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { proxy } from '../../config';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from '../../firebase';
 
 const Write = () => {
 
@@ -11,16 +13,21 @@ const Write = () => {
   const descRef = useRef();
   const [file, setFile] = useState(null)
   const [publish, setPublish] = useState(false)
+  const [fileurl, setFileurl] = useState(null);
+  const [fileupload ,setFileupload] = useState(false);
+
+
+
+  
 
   // take current user from context
   const { user } = useContext(Context);
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     setPublish(true);
     e.preventDefault();
 
-    if(user == null)
-    {
+    if (user == null) {
       setPublish(false);
       toast.error("You have not Login so please login then Post")
       return
@@ -32,62 +39,98 @@ const Write = () => {
       desc: descRef.current.value
     }
 
-    if (file) {
-      const data = new FormData();
-      const filename = Date.now() + file.name;
-      data.append("name", filename);
-      data.append("file", file)
-      console.log(data);
-      newPost.photo = filename;
+    if(fileurl)
+    {
+      newPost.photo = fileurl;
 
-      try {
-         await axios.post(proxy+"/upload" , data);
-      } catch (error) {
-         toast.error("somthing went wrong");
-      }
+    }
 
-      try {
-        const res = await  axios.post(proxy+"/post", newPost)
-        window.location.replace("/post/"+ res.data._id);
-      } catch (error) {
-      toast.error("somthing went wrong");
-      }
+
+    try {
+      const res = await axios.post(proxy + "/post", newPost)
+      console.log(res.data)
+      window.location.replace("/post/" + res.data._id);
+    } catch (error) {
+      toast.error("Try with different title");
     }
     setPublish(false);
-
-
   }
 
 
   useEffect(() => {
     const checkUser = () => {
       if (user == null) {
-        toast.error("please login then Post");
+        toast.warn("please login then Post");
       }
     }
-      checkUser();
-  
-  }, [])
+
+    const uploadfile = () => {
+       setFileupload(true)
+      const name = new Date().getTime() + file.name
+      console.log(name)
+      const storageRef = ref(storage, file.name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+            default:
+              break;
+          }
+        },
+        (error) => {
+          toast.error("not able to upload file")
+        },
+        () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setFileurl(downloadURL);
+            console.log(downloadURL);
+            setFileupload(false);
+          });
+        }
+      );
+
+    }
+
+
+
+    checkUser();
+    file && uploadfile(); 
+  }, [file])
 
 
   return (
     <div className='write'>
-     {
-      file && 
-      <img
-        className='writeImg'
-        src={URL.createObjectURL(file)}
-         alt="" />
-
-     }
+      {
+        file &&
+        <img
+          className='writeImg'
+          src={URL.createObjectURL(file)}
+          alt="" />
+      }
       <form className="writeForm" onSubmit={handleSubmit}>
         <div className="writeFormGroup">
 
           <label htmlFor='fileInput'>
             <i className="writeIcon fa-solid fa-plus"></i>
+            {
+              !file &&<p style={{"color":"green"}}>Select Your image</p>
+
+            }
+            
           </label>
           <input
-            onChange={e=>setFile(e.target.files[0])}
+            onChange={e => setFile(e.target.files[0])}
             type="file" id="fileInput" style={{ display: "none" }} />
           <input
             className='writeInput'
@@ -106,13 +149,13 @@ const Write = () => {
             ref={descRef}
           ></textarea>
         </div>
-        <button className="writeSubmit" type='submit'>Publish</button>
+        <button className="writeSubmit" type='submit' disabled={fileupload}>Publish</button>
         {
-                        publish && <div className="overlay">
-                            <div className="loading-spinner">
-                            </div>
-                        </div>
-                    }
+          publish && <div className="overlay">
+            <div className="loading-spinner">
+            </div>
+          </div>
+        }
       </form>
     </div>
   )

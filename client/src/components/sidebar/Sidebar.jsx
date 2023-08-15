@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import "./sidebar.css"
-import axios from 'axios';
-import { proxy } from '../../config';
-import { Link } from 'react-router-dom';
+
 
 const Sidebar = () => {
-  const [cats, setCats] = useState([]);
-  useEffect(() => {
-    const getCats = async () => {
-      const res = await axios.get(proxy + "/catagroy")
-      // console.log(res);
-      setCats(res.data);
-    }
-    getCats();
+  const [cats, setCats] = useState(["Music", "Nature", "Style", "Tech", "Dance",]);
+  const [imageIndex, setImageIndex] = useState(0);
+  const images = [
+    "https://cdn.pixabay.com/photo/2018/04/07/08/28/notepad-3297994_640.jpg",
+    "https://cdn.pixabay.com/photo/2019/09/17/18/48/computer-4484282_640.jpg",
+    "https://cdn.pixabay.com/photo/2014/02/13/07/28/wordpress-265132_640.jpg",
+    "https://cdn.pixabay.com/photo/2014/12/28/13/20/wordpress-581849_640.jpg",
+    'https://cdn.pixabay.com/photo/2020/03/06/08/00/laptop-4906312_640.jpg'
+  ];
 
-  }, [])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => {
+      clearInterval(interval); // Clean up the interval when component unmounts
+    };
+  }, []);
+
+
 
 
   return (
@@ -22,19 +31,27 @@ const Sidebar = () => {
       <div className="sidebarItem">
         <span className="title">ABOUT ME</span>
         <div className='sidebarImgContainer'>
-          <img className='sidebarImg' src="https://images.unsplash.com/photo-1649894223069-78bec9335ada?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2lybCUyMHdpdGglMjBmbG93ZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" />
+          {images.map((img, idx) => (
+            <img
+              key={idx}
+              className={`sidebarImg ${imageIndex === idx ? 'active' : ''}`}
+              style={{ opacity: imageIndex === idx ? 1 : 0 }}
+              src={img}
+              alt=""
+            />
+
+          ))}
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique voluptas facere magni assumenda. Ipsum esse nobis porro iste atque aperiam?</p>
+        <p style={{ "fontSize": "18px" }}>Welcome to our blog! We are a team of passionate writers and creators who love sharing our thoughts, experiences, and knowledge with the world.</p>
       </div>
       <div className="sidebarItem">
         <span className="title">CATEGORIES</span>
         <ul className="sidebarList">
           {
-            cats.map((cat,i) => (
-              <Link to={`/?cat=${cat.name}`} className='link' key={i}>
-              <li  className="sidebarListItem">{cat.name}</li>
+            cats.map((cat, i) => (
 
-              </Link>
+              <li key={i} className="sidebarListItem">{cat}</li>
+
             ))
           }
         </ul>
@@ -46,7 +63,6 @@ const Sidebar = () => {
           <i className=" sidebarIcon fa-brands fa-facebook"></i>
           <i className=" sidebarIcon fa-brands fa-youtube"></i>
           <i className=" sidebarIcon fa-brands fa-instagram-square"></i>
-
         </div>
       </div>
 

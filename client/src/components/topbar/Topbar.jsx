@@ -46,8 +46,8 @@ const Topbar = () => {
       <div className="topCenter">
         <ul className="topList">
           <Link className="topListItem" to={"/"}>Home</Link>
-          <Link className="topListItem" >About</Link>
-          <Link className="topListItem">Contact</Link>
+          <Link className="topListItem" to={"/about"}>About</Link>
+          <Link className="topListItem" to={"/contact"}>Contact</Link>
           <Link className="topListItem" to={"/write"}>Write</Link>
 
 
@@ -59,19 +59,25 @@ const Topbar = () => {
             <>  <Link className="topListItem" to={"/login"}>login</Link>
               <Link className="topListItem" to={"/register"}>Register</Link>
             </>
-            : <span className="topListItem"  onClick={handlogout}>logout</span>
+            : <span className="topListItem" onClick={handlogout}>logout</span>
         }
 
-{
-  user &&
-   <Link to={"/setting"}>
-    
-        <img className="topImg"
-        src={ user.profilePic ? imagePath+user.profilePic:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" } 
-        alt="" />
-   </Link>
-}
-       
+        {
+          user &&
+          <Link to={"/setting"}>
+
+            {
+              user.profilePic ?
+                <img className="topImg"
+                  src={user.profilePic}
+                  alt="" />
+                :
+                <img className="topImg" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt='not found' />
+            }
+
+          </Link>
+        }
+
         <i className="topSearchIcon  fa-solid fa-magnifying-glass"></i>
 
       </div>

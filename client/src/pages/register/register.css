@@ -1,62 +1,104 @@
-.register{
+.register {
     position: relative;
-}
-.registerWrapper{
-    /* overflow-x: hidden; */
-    height: calc(100vh );
+  }
+  
+  .registerWrapper {
+    height: calc(100vh - 120px);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* background-image: linear-gradient(to left, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%); */
-    /* background: url("https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=400"); */
     background: url("https://images.unsplash.com/photo-1487700160041-babef9c3cb55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxvZ2lufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60");
     background-size: contain;
+    background-position: center;
     align-items: center;
     position: absolute;
-    top:-60px;
+    top: -60px;
     width: 100%;
-    z-index: -1;;
- 
-}
-.registerWrapper > span{
-    font-size: 50px;
-    font-family: 'lora','Courier New', Courier, monospace;
-}
+    z-index: -1;
+    animation: fadeIn 1.5s ease-in-out;
+    height: 100vh;
 
-.registerForm{
-    margin-top:20px;
+
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .registerWrapper > span {
+    font-size: 45px;
+    font-family: 'lora', 'Courier New', Courier, monospace;
+    color: #464343;
+  }
+  
+  .registerForm {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
-
-}
-.registerForm > label{
-    font-family: 'lora','Courier New', Courier, monospace;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .registerForm > label {
+    font-family: 'lora', 'Courier New', Courier, monospace;
     font-size: 20px;
     margin: 10px 0px;
-
-
-}
-.registerInput{
-   padding: 10px 10px;
-   font-size: 18px;
-   margin-bottom: 20px;
-   outline: none;
-   border: none;
-   border: 1px solid #464343;
-   border-radius: 4px;
-   background-color: transparent;
-}
-.registerButton{
-    padding: 10px ;
-    color: aliceblue;
+  }
+  
+  .registerInput {
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    outline: none;
+    border: none;
+    border: 1px solid #464343;
+    border-radius: 4px;
+    background-color: transparent;
+  }
+  
+  .registerButton {
+    padding: 10px;
+    color: #fff;
     background-color: lightcoral;
-    border:none;
+    border: none;
     border-radius: 10px;
     font-size: 18px;
     cursor: pointer;
     margin: 20px 0px;
-}
-.registerButton:disabled{
+    transition: background-color 0.3s ease;
+  }
+  
+  .registerButton:disabled {
     cursor: not-allowed;
     background-color: antiquewhite;
-}
+  }
+  
+  .registerButton:hover {
+    background-color: #ff6347;
+  }
+  
+  /* Add responsive media queries */
+  @media (max-width: 768px) {
+    .registerWrapper > span {
+      font-size: 30px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .registerWrapper > span {
+      font-size: 20px;
+    }
+    .registerForm {
+      padding: 15px;
+    }
+  }
+  
