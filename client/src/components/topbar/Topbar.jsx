@@ -43,7 +43,7 @@ const Topbar = () => {
         <i className=" topIcon fa-brands fa-youtube"></i>
         <i className=" topIcon fa-brands fa-instagram-square"></i>
       </div>
-      <div className="topCenter">
+      <div className="topCenter">9
         <ul className="topList">
           <Link className="topListItem" to={"/"}>Home</Link>
           <Link className="topListItem" to={"/about"}>About</Link>

@@ -6,8 +6,7 @@ const INITIAL_STATE = {
     isFetching:false,
     error:false,
 }
-export const Context = createContext(INITIAL_STATE) 
-;
+export const Context = createContext(INITIAL_STATE) ;
 
 export const ContextProvider = ({children})=>{
 
